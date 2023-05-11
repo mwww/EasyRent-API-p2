@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         type: DataTypes.INTEGER,
       },
+      popularity_idx: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       model: {
         type: DataTypes.STRING,
         allowNull: false,
