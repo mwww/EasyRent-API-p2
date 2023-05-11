@@ -19,5 +19,10 @@ db.sequelize = connection
 db.Sequelize = Sequelize
 
 // db.user = require('../models/user')(connection, Sequelize)
+db.cars = require('../models/cars')(connection, Sequelize)
+db.transmissions = require('../models/transmissions')(connection, Sequelize)
+db.images = require('../models/images')(connection, Sequelize)
+db.users = require('../models/users')(connection, Sequelize)
+db.orders = require('../models/orders')(connection, Sequelize)
 
 module.exports = db
