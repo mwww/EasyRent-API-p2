@@ -18,6 +18,6 @@ app.use(morgan('tiny'))
 // app.get("/user", (req, res) => {});
 app.use('/api', apiRoute)
 
-app.listen(3001, () => {
-  console.log('Running in 3001')
+app.listen(3000, () => {
+  console.log('Running in 3000')
 })
