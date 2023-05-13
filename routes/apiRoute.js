@@ -20,16 +20,19 @@ const refreshToken = require("../controllers/refreshToken");
 
 router.get("/cars", apiController.getCars);
 router.get("/cars/sortby/:sortby", apiController.getCarsSortBy);
-router.get("/users", verifyToken.verifyToken, usersControler.getUsers);
-router.post("/users", usersControler.Register);
-router.post("/login", usersControler.Login);
-router.get("/token", refreshToken.refreshToken);
-// router.delete("/logout", Logout);
+
+
+// router.get('/cars/sortby/:sortby&:direction', apiController.getCarsSortBy)
 
 // router.get('/cars')
 // localhost.../cars?sortby=ID
 // router.get('/cars/sortby/:direction/:sortby', apiController.getCarsSortBy)
 
+router.get("/users", verifyToken.verifyToken, usersControler.getUsers);
+router.post("/users", usersControler.Register);
+router.post("/login", usersControler.Login);
+router.get("/token", refreshToken.refreshToken);
+// router.delete("/logout", Logout);
 // console.log(getUsers());
 
 module.exports = router;

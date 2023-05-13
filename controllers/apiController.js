@@ -1,23 +1,47 @@
-const GetCarsData = require('../features/getCarsData')
-const Sortby = require('../features/sortby')
+// const GetCarsData = require('../features/getCarsData')
+// const Sortby = require('../features/sortby')
+const db = require('../db/connection')
 
-const getCars = (req, res) => {
-  // TODO: integrate DB and request data from DB.
-  const carsData = GetCarsData()
-  // const queryParams = req.query
-
-  // console.log(queryParams)
-
-  res.json(carsData)
+const getCars = async (req, res) => {
+  const carsData = await db.cars.findAll()
+  const transmissionsData = await db.transmissions.findAll()
+  const finalData = carsData.map((car) => {
+    const transmissions = transmissionsData.filter(
+      (t) => t.id_mobil === car.id_mobil
+    )
+    return {
+      ...car.toJSON(),
+      transmissions,
+    }
+  })
+  return res.json({
+    status: 200,
+    message: 'Success get all data',
+    data: finalData,
+  })
 }
 
-const getCarsSortBy = (req, res) => {
-  const sortby = req.params.sortby
-  let carsData = GetCarsData()
+const getCarsSortBy = async (req, res) => {
+  const sortby = req.query.sortby
+  const direction = req.query.direction
 
-  carsData = Sortby(sortby, carsData)
+  let carsData = await db.cars.findAll({
+    order: [[sortby, direction]],
+  })
 
-  res.json(carsData)
+  return res.json({
+    status: 200,
+    message: 'Success get all data',
+    data: carsData,
+  })
+
+  // res.send({
+  //   'sortby': sortby,
+  //   'direction': direction
+  // });
+
+  // carsData = Sortby(sortby, carsData)
+  // res.json(carsData)
 }
 
 module.exports = {

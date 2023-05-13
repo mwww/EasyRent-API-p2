@@ -10,11 +10,20 @@ const db = require("./db/connection");
 const app = express();
 dotenv.config();
 
-db.sequelize
-  .sync({ force: false })
-  .then(() => console.log("db syncronized!"))
-  .catch((err) => console.log("cannot syncronize db", err));
+// const migrate_json_to_db = require('./features/bulkCreate/migrate_json_to_db')
+// migrate_json_to_db()
 
+// console.log(carJsonData())
+
+db.sequelize
+  .sync({ force: true })
+  .then(() => {
+    console.log('db syncronized!')
+    require('./features/bulkCreate/migrate_json_to_db')(db)
+  })
+  .catch((err) => console.log('cannot syncronize db', err))
+
+// app.use(cors())
 app.use(cors({ credentials: true }));
 app.use(morgan("tiny"));
 app.use(cookieParser());
