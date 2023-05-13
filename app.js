@@ -7,15 +7,20 @@ const apiRoute = require('./routes/apiRoute')
 const db = require('./db/connection')
 const app = express()
 
-// const migrate_json_to_db = require('./migrate_json_to_db')
+const migrate_json_to_db = require('./migrate_json_to_db')
 // migrate_json_to_db()
 
 // console.log(carJsonData())
 
 db.sequelize
   .sync({ force: true })
-  .then(() => console.log('db syncronized!'))
+  .then(() => {
+    console.log('db syncronized!')
+    migrate_json_to_db()
+  })
   .catch((err) => console.log('cannot syncronize db', err))
+
+// create data
 
 app.use(cors())
 app.use(morgan('tiny'))
