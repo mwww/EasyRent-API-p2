@@ -6,6 +6,21 @@ const _ = {
   users: users,
 }
 
+const sample_data = {
+  id_mobil: 0,
+  model: 'model X',
+  brand: 'Tesla',
+  release_year: 2022,
+  price: 250000,
+  engine: 'idk what',
+  HP: 0,
+  TRQ: 0,
+  transmissions: {
+    transmission_type: 'AT',
+    speed: 6,
+  },
+}
+
 const cars = {
   id_mobil: 0,
   model: 'model X',
