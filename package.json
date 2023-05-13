@@ -1,5 +1,5 @@
 {
-  "name": "easyrent-API-p2",
+  "name": "easyrent-api-p2",
   "description": "",
   "version": "1.0.0",
   "main": "index.js",
@@ -16,9 +16,12 @@
   "author": "mwww",
   "license": "GPL-3.0-or-later",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "mysql2": "^3.3.0",
     "sequelize": "^6.31.1"
