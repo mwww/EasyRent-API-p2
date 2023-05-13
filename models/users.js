@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    'users',
+  const user = sequelize.define(
+    "users",
     {
       id_user: {
         type: DataTypes.INTEGER,
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       role: {
-        type: DataTypes.ENUM('user', 'admin'),
+        type: DataTypes.ENUM("user", "admin"),
         allowNull: false,
       },
       first_name: {
@@ -31,11 +31,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      refresh_token: {
+        type: DataTypes.TEXT,
+      },
     },
     {
       timestamps: false,
     }
-  )
-
-  return User
-}
+  );
+  return user;
+};

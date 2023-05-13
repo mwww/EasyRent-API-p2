@@ -110,4 +110,4 @@ function getCarsData() {
   return carsData
 }
 
-module.exports = getCarsData
+module.exports = getCarsData;
