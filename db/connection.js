@@ -11,6 +11,7 @@ const connection = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
   host: DB_HOST,
   dialect: 'mysql',
   port: DB_PORT,
+  logging: false,
 })
 
 const db = {}
