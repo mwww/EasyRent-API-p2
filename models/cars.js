@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define(
+  const cars = sequelize.define(
     'cars',
     {
       id_mobil: {
@@ -63,4 +63,6 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
     }
   )
+
+  return cars
 }
