@@ -18,6 +18,12 @@
         "transmission_type": "MT",
         "speed": 7
       }
+    ],
+    "images": [
+      {
+        "img_name": "1",
+        "img_ext": "jpg"
+      }
     ]
   },
   {
@@ -34,6 +40,12 @@
       {
         "transmission_type": "AT",
         "speed": 8
+      }
+    ],
+    "images": [
+      {
+        "img_name": "1",
+        "img_ext": "jpg"
       }
     ]
   },
@@ -52,6 +64,12 @@
         "transmission_type": "AT",
         "speed": 1
       }
+    ],
+    "images": [
+      {
+        "img_name": "1",
+        "img_ext": "jpg"
+      }
     ]
   },
   {
@@ -68,6 +86,12 @@
       {
         "transmission_type": "AT",
         "speed": 6
+      }
+    ],
+    "images": [
+      {
+        "img_name": "1",
+        "img_ext": "jpg"
       }
     ]
   }
