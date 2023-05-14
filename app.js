@@ -10,11 +10,6 @@ const db = require('./db/connection')
 const app = express()
 dotenv.config()
 
-// const migrate_json_to_db = require('./features/bulkCreate/migrate_json_to_db')
-// migrate_json_to_db()
-
-// console.log(carJsonData())
-
 db.sequelize
   .sync({ force: true })
   .then(() => {
@@ -24,7 +19,7 @@ db.sequelize
   .catch((err) => console.log('cannot syncronize db', err))
 
 // app.use(cors())
-// app.use(cors({ credentials: true }));
+app.use(cors({ credentials: true }))
 app.use(morgan('tiny'))
 app.use(cookieParser())
 app.use(express.json())
