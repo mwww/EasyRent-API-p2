@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      img_name: {
+        type: DataTypes.STRING(5),
+        allowNull: false,
+      },
       img_ext: {
         type: DataTypes.STRING(5),
         allowNull: false,
