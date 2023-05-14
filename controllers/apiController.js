@@ -4,14 +4,23 @@ const db = require('../db/connection')
 
 const getCars = async (req, res) => {
   const carsData = await db.cars.findAll()
-  const transmissionsData = await db.transmissions.findAll()
+  let transmissionsData = await db.transmissions.findAll()
+  const imagesData = await db.images.findAll()
+
   const finalData = carsData.map((car) => {
-    const transmissions = transmissionsData.filter(
-      (t) => t.id_mobil === car.id_mobil
-    )
+    let transmissions = transmissionsData
+      .filter((t) => t.id_mobil === car.id_mobil)
+      .flatMap((transmission) => ({
+        transmission_type: transmission.transmission_type,
+        speed: transmission.speed,
+      }))
+    let images = imagesData
+      .filter((t) => t.id_mobil === car.id_mobil)
+      .flatMap((img) => `${img.img_name}.${img.img_ext}`)
     return {
       ...car.toJSON(),
       transmissions,
+      images,
     }
   })
   return res.json({
