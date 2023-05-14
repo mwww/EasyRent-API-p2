@@ -11,6 +11,7 @@ const getCars = async (req, res) => {
     let transmissions = transmissionsData
       .filter((t) => t.id_mobil === car.id_mobil)
       .flatMap((transmission) => ({
+        // [transmission.transmission_type]: transmission.speed,
         transmission_type: transmission.transmission_type,
         speed: transmission.speed,
       }))
