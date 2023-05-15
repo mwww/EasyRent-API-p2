@@ -1,33 +1,32 @@
-// const GetCarsData = require('../features/getCarsData')
-// const Sortby = require('../features/sortby')
+const GetCarsData = require('../features/getCarsData')
+const Sortby = require('../features/sortby')
 const db = require('../db/connection')
 
 const getCars = async (req, res) => {
-  const carsData = await db.cars.findAll()
-  let transmissionsData = await db.transmissions.findAll()
-  const imagesData = await db.images.findAll()
+  let msg
+  const sortby = ['id', 'popularity', 'release', 'price', 'hp', 'trq'].includes(
+    req.query.sortby
+  )
+    ? req.query.sortby
+    : ''
+  const order = req.query.order
 
-  const finalData = carsData.map((car) => {
-    let transmissions = transmissionsData
-      .filter((t) => t.id_mobil === car.id_mobil)
-      .flatMap((transmission) => ({
-        // [transmission.transmission_type]: transmission.speed,
-        transmission_type: transmission.transmission_type,
-        speed: transmission.speed,
-      }))
-    let images = imagesData
-      .filter((t) => t.id_mobil === car.id_mobil)
-      .flatMap((img) => `${img.img_name}.${img.img_ext}`)
-    return {
-      ...car.toJSON(),
-      transmissions,
-      images,
-    }
-  })
+  let carsData = await GetCarsData()
+
+  if (sortby) {
+    carsData = Sortby(sortby, order, carsData)
+    msg =
+      ['id', 'popularity', 'release', 'price', 'hp', 'trq'].includes(sortby) &&
+      ['asc', 'desc'].includes(order)
+        ? 'Success get and sort all data'
+        : `Success get all data but get invalid sorting param(s). sortby=${sortby} order=${order}`
+  }
+  sorbyProps = ['id', 'popularity', 'release', 'price', 'hp', 'trq']
+
   return res.json({
     status: 200,
-    message: 'Success get all data',
-    data: finalData,
+    message: msg,
+    data: carsData,
   })
 }
 
