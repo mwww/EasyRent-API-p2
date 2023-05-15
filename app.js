@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const dotenv = require('dotenv')
 
 const apiRoute = require('./routes/apiRoute')
+const userRoute = require('./routes/userRoute')
 
 const db = require('./db/connection')
 const app = express()
@@ -26,6 +27,7 @@ app.use(express.json())
 
 // app.get("/user", (req, res) => {});
 app.use('/api', apiRoute)
+app.use('/user', userRoute)
 
 app.listen(process.env.PORT, () => {
   console.log(`Running in ${process.env.PORT}`)
