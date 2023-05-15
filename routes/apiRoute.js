@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const apiController = require('../controllers/apiController')
+const carController = require('../controllers/carController')
 
-router.get('/cars', apiController.getCars)
-// router.get('/cars/sortby/:sortby', apiController.getCarsSortBy)
+router.get('/cars', carController.getCars)
+router.get('/cars/:id', carController.getCar)
 
 module.exports = router
