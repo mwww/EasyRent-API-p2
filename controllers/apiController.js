@@ -1,27 +1,67 @@
 const GetCarsData = require('../features/getCarsData')
 const Sortby = require('../features/sortby')
-const db = require('../db/connection')
+
+// const getCars = async (req, res) => {
+//   let carsData = await GetCarsData()
+
+//   if (req.query.sortby) {
+//     console.log('tup')
+//   }
+//   const sorbyProps = ['id', 'popularity', 'release', 'price', 'hp', 'trq']
+//   const sorbyOrders = ['asc', 'desc']
+//   const sortbyRaw = req.query.sortby
+//   const sortby = sorbyProps.includes(sortbyRaw) && sortbyRaw
+//   const orderRaw = req.query.order
+//   const order = !(sorbyOrders.includes(orderRaw) && orderRaw) && 'asc'
+
+//   console.log(req.query, order)
+
+//   const invalid =
+//     Object.keys(req.query).length !== 0 &&
+//     (!sorbyProps.includes(sortby)
+//       ? [`invalid sorting query ('${sortbyRaw}')`]
+//       : []
+//     ).concat(
+//       !sorbyOrders.includes(order)
+//         ? [`invalid sorting order query ('${orderRaw}')`]
+//         : []
+//     )
+
+//   let sorted = false
+//   if (sortby) {
+//     const sortedCarsData = Sortby(sortby, order, carsData)
+//     if (carsData != sortedCarsData) {
+//       sorted = true
+//       carsData = sortedCarsData
+//     }
+//   }
+
+//   console.log(sorted)
+
+//   let msg = sorted
+//     ? 'Success get, sort, and return all data.'
+//     : 'Success get and return all data.'
+//   msg += invalid.length > 0 ? ` But got error(s): ${invalid.join(', ')}` : ''
+//   return res.json({
+//     status: 200,
+//     message: msg,
+//     data: carsData,
+//   })
+// }
 
 const getCars = async (req, res) => {
-  let msg
-  const sortby = ['id', 'popularity', 'release', 'price', 'hp', 'trq'].includes(
-    req.query.sortby
-  )
-    ? req.query.sortby
-    : ''
-  const order = req.query.order
-
   let carsData = await GetCarsData()
 
-  if (sortby) {
-    carsData = Sortby(sortby, order, carsData)
-    msg =
-      ['id', 'popularity', 'release', 'price', 'hp', 'trq'].includes(sortby) &&
-      ['asc', 'desc'].includes(order)
-        ? 'Success get and sort all data'
-        : `Success get all data but get invalid sorting param(s). sortby=${sortby} order=${order}`
+  if (req.query.sortby) {
+    sorted = theyWantSort(req, carsData)
+    carsData = sorted.e ? carsData : sorted.data
   }
-  sorbyProps = ['id', 'popularity', 'release', 'price', 'hp', 'trq']
+
+  let msg = !sorted.e
+    ? 'success get, sort, and return all data.'
+    : 'success get and return all data.'
+
+  msg += sorted.e ? ` But got error(s): ${sorted.e.join(', ')}.` : ''
 
   return res.json({
     status: 200,
@@ -30,30 +70,38 @@ const getCars = async (req, res) => {
   })
 }
 
-const getCarsSortBy = async (req, res) => {
-  const sortby = req.query.sortby
-  const direction = req.query.direction
+function theyWantSort(req, data) {
+  data = [...data]
+  let sortby, order
+  let e = []
 
-  let carsData = await db.cars.findAll({
-    order: [[sortby, direction]],
-  })
+  const sorbyProps = ['id', 'popularity', 'release', 'price', 'hp', 'trq']
+  const sortbyRaw = req.query.sortby
+  if (!sorbyProps.includes(sortbyRaw)) {
+    e.push(`invalid sortby prop ('${sortbyRaw}')`)
+  }
+  sortby = sortbyRaw
 
-  return res.json({
-    status: 200,
-    message: 'Success get all data',
-    data: carsData,
-  })
+  const sorbyOrders = ['asc', 'desc']
+  const orderRaw = req.query.order
+  if (req.query.order) {
+    if (!sorbyOrders.includes(orderRaw)) {
+      e.push(`invalid sortby order ('${orderRaw}')`)
+    }
+    order = orderRaw
+  } else {
+    order = 'asc'
+  }
 
-  // res.send({
-  //   'sortby': sortby,
-  //   'direction': direction
-  // });
+  if (e.length > 0) {
+    return { e: e, data: data }
+  }
 
-  // carsData = Sortby(sortby, carsData)
-  // res.json(carsData)
+  data = Sortby(sortby, order, data)
+
+  return { e: false, data: data }
 }
 
 module.exports = {
   getCars,
-  getCarsSortBy,
 }
