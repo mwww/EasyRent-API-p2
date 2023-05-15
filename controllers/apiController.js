@@ -13,7 +13,9 @@ const getCars = async (req, res) => {
     ? 'success get, sort, and return all data.'
     : 'success get and return all data.'
 
-  msg += sorted.e ? ` But got error(s): ${sorted.e.join(', ')}.` : ''
+  msg += sorted.e
+    ? ` But got error${sorted.e.length > 1 ? 's' : ''}: ${sorted.e.join(', ')}.`
+    : ''
 
   return res.json({
     status: 200,
