@@ -1,9 +1,22 @@
 const db = require('../db/connection')
 
-async function getCarsData() {
-  const carsData = await db.cars.findAll()
-  let transmissionsData = await db.transmissions.findAll()
-  const imagesData = await db.images.findAll()
+async function getCarsData(id = null) {
+  let carsData, transmissionsData, imagesData
+
+  if (id) {
+    query = {
+      where: {
+        id_mobil: id,
+      },
+    }
+    carsData = await db.cars.findAll(query)
+    transmissionsData = await db.transmissions.findAll(query)
+    imagesData = await db.images.findAll(query)
+  } else {
+    carsData = await db.cars.findAll()
+    transmissionsData = await db.transmissions.findAll()
+    imagesData = await db.images.findAll()
+  }
 
   const finalData = carsData.map((car) => {
     let transmissions = transmissionsData
