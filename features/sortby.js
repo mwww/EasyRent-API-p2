@@ -4,6 +4,7 @@ function sortby(sortby, order, data = null) {
   if (!data) {
     data = GetCarsData()
   }
+  data = [...data]
   sorbyProps = {
     id: 'id_mobil',
     popularity: 'popularity_idx',
