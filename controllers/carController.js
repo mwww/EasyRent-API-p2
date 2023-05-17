@@ -66,13 +66,19 @@ function theyWantSort(req, data) {
 }
 
 const getCar = async (req, res) => {
-  let status, msg, carData
+  let carsData
   const carID = req.params.id
-  let carsData = await GetCarsData(carID)
+  carsData = await GetCarsData(carID)
+
+  // console.log(carsData)
 
   return res.json(
     carsData.length === 1
-      ? { status: status, message: msg, data: carData }
+      ? {
+          status: 200,
+          message: 'success get and return all data.',
+          data: carsData[0],
+        }
       : { status: 404, msg: 'car not found.', data: {} }
   )
 }
