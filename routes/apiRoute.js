@@ -3,6 +3,6 @@ const router = express.Router()
 const carController = require('../controllers/carController')
 
 router.get('/cars', carController.getCars)
-router.get('/cars/:id', carController.getCar)
+router.get('/car/:id', carController.getCar)
 
 module.exports = router
