@@ -9,18 +9,21 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         autoIncrement: true,
       },
-      id_user: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       id_mobil: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      timestamp: {
-        type: DataTypes.DATE,
+      user_name: {
+        type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: DataTypes.NOW,
+      },
+      user_email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      user_phone: {
+        type: DataTypes.STRING(15),
+        allowNull: false,
       },
       pickup_date: {
         type: DataTypes.DATEONLY,
@@ -32,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      timestamps: false,
+      timestamps: true,
     }
   )
 
