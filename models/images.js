@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(5),
         allowNull: false,
       },
+      blob: {
+        type: DataTypes.BLOB,
+        allowNull: true,
+      },
     },
     {
       timestamps: false,
@@ -29,7 +33,14 @@ module.exports = (sequelize, DataTypes) => {
 
   // Define the associations
   const Car = sequelize.models.cars
-  Image.belongsTo(Car, { foreignKey: 'id_mobil' })
+  Image.belongsTo(Car, {
+    foreignKey: 'id_mobil',
+    targetKey: 'id_mobil',
+    onDelete: 'CASCADE',
+  })
+  // Car.hasMany(Image, {
+  //   onDelete: 'CASCADE',
+  // })
 
   return Image
 }
