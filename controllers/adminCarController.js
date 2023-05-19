@@ -1,5 +1,4 @@
 const db = require('../db/connection')
-const { Sequelize, DataTypes } = require('sequelize')
 
 const getCars = async (req, res) => {
   const carsData = await db.cars.findAll()
