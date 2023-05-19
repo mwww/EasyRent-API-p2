@@ -1,13 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const adminController = require('../controllers/adminCarController')
+const carController = require('../controllers/admin/car')
+const transmissionController = require('../controllers/admin/transmission')
 
-router.get('/cars', adminController.getCars)
-router.get('/car/:id', adminController.getCar)
-router.put('/car/:id', adminController.editCar)
-router.post('/car/', adminController.addCar)
-router.delete('/car/:id', adminController.deleteCar)
-router.get('/cars/compiled', adminController.getCarsCompiled)
-router.get('/car/compiled/:id', adminController.getCarCompiled)
+router.get('/cars', carController.getCars)
+router.get('/car/:id', carController.getCar)
+router.put('/car/:id', carController.editCar)
+router.post('/car/', carController.addCar)
+router.delete('/car/:id', carController.deleteCar)
+
+router.get('/transmissions', transmissionController.getTransmissions)
+router.get('/transmission/:id', transmissionController.getTransmission)
 
 module.exports = router
