@@ -32,7 +32,11 @@ module.exports = (sequelize, DataTypes) => {
   Transmission.belongsTo(Car, {
     foreignKey: 'id_mobil',
     targetKey: 'id_mobil',
+    onDelete: 'CASCADE',
   })
+  // Car.hasMany(Transmission, {
+  //   onDelete: 'CASCADE',
+  // })
 
   return Transmission
 }
