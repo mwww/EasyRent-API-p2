@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       user_email: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       user_phone: {
         type: DataTypes.STRING(15),
-        allowNull: false,
+        allowNull: true,
       },
       pickup_date: {
         type: DataTypes.DATEONLY,
