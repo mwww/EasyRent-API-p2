@@ -12,7 +12,7 @@ const app = express()
 dotenv.config()
 
 db.connection
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     console.log('db syncronized!')
     require('./features/bulkCreate/migrate_json_to_db')(db)

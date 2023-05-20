@@ -8,7 +8,7 @@ router.get('/users', verifyToken.verifyToken, usersControler.getUsers)
 router.post('/users', usersControler.Register)
 router.post('/login', usersControler.Login)
 router.get('/token', refreshToken.refreshToken)
-// router.delete("/logout", Logout);
+router.delete("/logout", usersControler.Logout);
 // console.log(getUsers());
 
 module.exports = router
