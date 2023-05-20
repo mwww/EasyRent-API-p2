@@ -1,4 +1,4 @@
-const db = require('../../db/connection')
+const db = require('../../../db/connection')
 
 const getCars = async (req, res) => {
   const carsData = await db.cars.findAll()
@@ -62,8 +62,7 @@ const addCar = async (req, res) => {
     const { car, transmissions, images } = req.body
 
     const newCar = await db.cars.create(car)
-
-    const newTransmissions = await Promise.all(
+    await Promise.all(
       transmissions.map((transmission) =>
         db.transmissions.create({
           ...transmission,
@@ -71,8 +70,7 @@ const addCar = async (req, res) => {
         })
       )
     )
-
-    const newImages = await Promise.all(
+    await Promise.all(
       images.map((image) =>
         db.images.create({
           ...image,
@@ -80,15 +78,20 @@ const addCar = async (req, res) => {
         })
       )
     )
-
-    res.json({
-      car: newCar,
-      transmissions: newTransmissions,
-      images: newImages,
+    return res.json({
+      status: 200,
+      message: 'success added a new data.',
     })
+    // res.status(500).json({
+    //   status: 200,
+    //   message: 'failed added a new data.',
+    // })
   } catch (error) {
     console.error('Error adding car:', error)
-    res.status(500).json({ error: 'Failed to add car' })
+    res.status(500).json({
+      status: 200,
+      message: 'failed added a new data.',
+    })
   }
 }
 
