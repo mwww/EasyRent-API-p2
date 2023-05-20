@@ -1,9 +1,12 @@
+require('./features/🥚')
+
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const dotenv = require('dotenv')
 
+const hiRoute = require('./routes/hiRoute')
 const apiRoute = require('./routes/apiRoute')
 const userRoute = require('./routes/userRoute')
 const adminRoute = require('./routes/adminRoute')
@@ -26,7 +29,10 @@ app.use(morgan('tiny'))
 app.use(cookieParser())
 app.use(express.json())
 
-// app.get("/user", (req, res) => {});
+app.get('/', (req, res) => {
+  res.json({ error: 'you should either use `/api`, `/admin`, or `/user`' })
+})
+app.use('/hi', hiRoute)
 app.use('/api', apiRoute)
 app.use('/user', userRoute)
 app.use('/admin', adminRoute)
