@@ -1,4 +1,5 @@
-const rawJsonData = require('./sample_data.json')
+// const rawJsonData = require('./sample_data.json')
+const rawJsonData = require('./test_data.json')
 
 const carsData = rawJsonData.map(({ transmissions, images, ...car }) => car)
 
