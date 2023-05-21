@@ -15,7 +15,7 @@ db.connection
   .sync({ force: false })
   .then(() => {
     console.log('db syncronized!')
-    require('./features/bulkCreate/migrate_json_to_db')(db)
+    // require('./features/bulkCreate/migrate_json_to_db')(db)
   })
   .catch((err) => console.log('cannot syncronize db', err))
 
