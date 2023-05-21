@@ -1,27 +1,27 @@
 const db = require('../../../db/connection')
 
 const getAppointments = async (req, res) => {
-  const carsData = await db.appointments.findAll()
+  const appointmentsData = await db.appointments.findAll()
   const msg = 'success get and return all data.'
   return res.json({
     status: 200,
     message: msg,
-    data: carsData,
+    data: appointmentsData,
   })
 }
 
 const getAppointment = async (req, res) => {
   const appointmentId = req.params.id
-  const carsData = await db.appointments.findAll({
+  const appointmentsData = await db.appointments.findAll({
     where: { id_appointment: appointmentId },
   })
   const partialMsg = ' get and return all data.'
   return res.json(
-    carsData.length === 1
+    appointmentsData.length === 1
       ? {
           status: 200,
           message: 'success' + partialMsg,
-          data: carsData[0],
+          data: appointmentsData[0],
         }
       : { status: 404, message: 'failed' + partialMsg, data: {} }
   )
@@ -31,6 +31,8 @@ const editAppointment = async (req, res) => {
   try {
     const appointmentId = req.params.id
     const { appointment } = req.body
+
+    // console.log(req.body)
 
     await db.appointments.update(appointment, {
       where: { id_appointment: appointmentId },
